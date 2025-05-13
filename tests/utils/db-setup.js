@@ -17,10 +17,9 @@ let referenceCount = 0;
 
 /**
  * Get a connection to the test database, creating it if needed
- * @param {boolean} [useMigrations=true] - Whether to use migrations or direct SQL
  * @returns {Promise<Pool>} Database pool for the test database
  */
-async function getTestDatabasePool(useMigrations = true) {
+async function getTestDatabasePool() {
   // Increment reference count
   referenceCount++;
   
@@ -60,7 +59,7 @@ async function getTestDatabasePool(useMigrations = true) {
   
   // Initialize database schema if not initialized
   try {
-    await initializeDatabase(useMigrations);
+    await initializeDatabase();
     dbInitialized = true;
   } catch (err) {
     console.error('Error initializing database schema:', err);
@@ -111,75 +110,37 @@ async function createTestDatabase() {
 }
 
 /**
- * Initialize the database schema
- * @param {boolean} [useMigrations=true] - Whether to use migrations or direct SQL
+ * Initialize the database schema using migrations
  */
-async function initializeDatabase(useMigrations = true) {
+async function initializeDatabase() {
   if (!sharedPool) {
     throw new Error('Cannot initialize database without a pool');
   }
   
   console.log('Initializing test database schema...');
   
-  // Initialize database schema
-  if (useMigrations) {
-    try {
-      console.log('Using migrations to initialize database schema...');
-      
-      // Set environment variable for migrations
-      const oldDbName = process.env.PG_DATABASE;
-      process.env.PG_DATABASE = TEST_DB_NAME;
-      
-      try {
-        // Import and run migrations directly
-        const migrations = require('../../scripts/apply-migrations');
-        console.log('Starting database migration...');
-        await migrations.runMigrations({ pool: sharedPool });
-        console.log('Migration completed successfully.');
-      } finally {
-        // Restore original database name environment variable
-        if (oldDbName) {
-          process.env.PG_DATABASE = oldDbName;
-        } else {
-          delete process.env.PG_DATABASE;
-        }
-      }
-    } catch (err) {
-      console.error('Error running migrations:', err);
-      
-      // Fallback to direct SQL if migrations fail
-      console.warn('Migration failed, falling back to direct SQL');
-      const sqlPath = path.join(__dirname, '../../database.sql');
-      if (fs.existsSync(sqlPath)) {
-        const sql = fs.readFileSync(sqlPath, 'utf8');
-        await sharedPool.query(sql);
-      } else {
-        throw new Error('No fallback schema found. Database initialization failed.');
-      }
-    }
-  } else {
-    // Use direct SQL from database.sql
-    const sqlPath = path.join(__dirname, '../../database.sql');
-    if (fs.existsSync(sqlPath)) {
-      console.log('Using direct SQL to initialize database schema...');
-      const sql = fs.readFileSync(sqlPath, 'utf8');
-      await sharedPool.query(sql);
+  // Always use migrations to initialize database schema
+  console.log('Using migrations to initialize database schema...');
+  
+  // Set environment variable for migrations
+  const oldDbName = process.env.PG_DATABASE;
+  process.env.PG_DATABASE = TEST_DB_NAME;
+  
+  try {
+    // Import and run migrations directly
+    const migrations = require('../../scripts/apply-migrations');
+    console.log('Starting database migration...');
+    await migrations.runMigrations({ pool: sharedPool });
+    console.log('Migration completed successfully.');
+  } catch (err) {
+    console.error('Error running migrations:', err);
+    throw new Error('Database initialization failed: ' + err.message);
+  } finally {
+    // Restore original database name environment variable
+    if (oldDbName) {
+      process.env.PG_DATABASE = oldDbName;
     } else {
-      console.warn('database.sql not found, falling back to migrations');
-      const oldDbName = process.env.PG_DATABASE;
-      process.env.PG_DATABASE = TEST_DB_NAME;
-      
-      try {
-        const migrations = require('../../scripts/apply-migrations');
-        await migrations.runMigrations({ pool: sharedPool });
-      } finally {
-        // Restore original database name environment variable
-        if (oldDbName) {
-          process.env.PG_DATABASE = oldDbName;
-        } else {
-          delete process.env.PG_DATABASE;
-        }
-      }
+      delete process.env.PG_DATABASE;
     }
   }
   
@@ -201,11 +162,10 @@ async function initializeDatabase(useMigrations = true) {
 
 /**
  * Setup a test database environment with the shared pool
- * @param {boolean} [useMigrations=true] - Whether to use migrations or direct SQL
  * @returns {Promise<Pool>} Database pool for the test database
  */
-async function setupTestDatabase(useMigrations = true) {
-  return getTestDatabasePool(useMigrations);
+async function setupTestDatabase() {
+  return getTestDatabasePool();
 }
 
 /**
