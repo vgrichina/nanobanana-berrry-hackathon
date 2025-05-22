@@ -12,8 +12,8 @@ const crypto = require('crypto');
  * @returns {Promise<{pool: Pool, dbName: string}>} Database pool and name
  */
 async function createTestDatabase(testName) {
-  // Generate unique database name (replace hyphens with underscores for PostgreSQL compatibility)
-  const safeName = testName.replace(/-/g, '_');
+  // Generate unique database name (replace hyphens with underscores and convert to lowercase for PostgreSQL compatibility)
+  const safeName = testName.replace(/-/g, '_').toLowerCase();
   const dbName = `berrryweb_test_${safeName}_${crypto.randomBytes(4).toString('hex')}`;
   
   // Create the database
