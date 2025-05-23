@@ -109,46 +109,45 @@ async function initializeDatabase(pool, dbName) {
 }
 
 /**
- * Replace the pool in db.js with a test pool
- * @param {object} db - The database module
+ * Create a test database instance using the provided pool
  * @param {Pool} testPool - The test database pool
- * @returns {object} The modified db module
+ * @returns {object} Database instance configured with test pool
  */
-function useTestDatabase(db, testPool) {
-  // Save original pool methods if not already saved
-  if (!db.pool._originalMethods) {
-    db.pool._originalMethods = {
-      end: db.pool.end,
-      connect: db.pool.connect,
-      query: db.pool.query
-    };
-  }
-  
-  // Replace with test pool methods
-  db.pool.end = function() {
-    console.log('Ignoring pool.end() call from application code');
-    // Don't actually close the pool
-    return Promise.resolve();
-  };
-  db.pool.connect = testPool.connect.bind(testPool);
-  db.pool.query = testPool.query.bind(testPool);
-  
-  return db;
+function createTestDbInstance(testPool) {
+  const createDb = require('../../src/db');
+  return createDb(testPool);
 }
 
 /**
- * Restore original pool methods
- * @param {object} db - The database module
+ * Create a test context with test database and real dependencies
+ * @param {Pool} testPool - The test database pool
+ * @returns {object} Test context with test db and real dependencies
  */
-function restoreDatabase(db) {
-  if (db.pool && db.pool._originalMethods) {
-    const originalMethods = db.pool._originalMethods;
-    db.pool.end = originalMethods.end;
-    db.pool.connect = originalMethods.connect;
-    db.pool.query = originalMethods.query;
-    delete db.pool._originalMethods;
-  }
+function createTestContext(testPool) {
+  const db = createTestDbInstance(testPool);
+  
+  // Mock only Twitter API to avoid external calls
+  const mockTwitterApi = {
+    getTweet: () => ({ data: { id: 'mock' } }),
+    getParentTweets: () => ({ data: [] }),
+    isConfigured: () => true,
+    TwitterRateLimitError: class extends Error {}
+  };
+  
+  // Use real dependencies
+  const llm = require('../../src/llm');
+  const forkDetector = require('../../src/fork-detector');
+  const tweetProcessor = require('../../src/tweet-processor');
+  
+  return {
+    db,
+    twitterApi: mockTwitterApi,
+    llm,
+    forkDetector,
+    tweetProcessor
+  };
 }
+
 
 /**
  * Clean up test database and connections
@@ -198,7 +197,7 @@ async function cleanupTestDatabase(pool, dbName) {
 
 module.exports = {
   createTestDatabase,
-  useTestDatabase,
-  restoreDatabase,
+  createTestDbInstance,
+  createTestContext,
   cleanupTestDatabase
 };
