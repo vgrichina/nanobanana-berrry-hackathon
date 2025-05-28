@@ -126,6 +126,10 @@ function createTestDbInstance(testPool) {
 function createTestContext(testPool) {
   const db = createTestDbInstance(testPool);
   
+  // Create auth module with test database
+  const createAuth = require('../../src/users/auth');
+  const auth = createAuth(db);
+  
   // Mock only Twitter API to avoid external calls
   const mockTwitterApi = {
     getTweet: () => ({ data: { id: 'mock' } }),
@@ -141,6 +145,7 @@ function createTestContext(testPool) {
   
   return {
     db,
+    auth,
     twitterApi: mockTwitterApi,
     llm,
     forkDetector,
