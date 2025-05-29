@@ -200,9 +200,21 @@ async function cleanupTestDatabase(pool, dbName) {
   }
 }
 
+/**
+ * NEW: Create a unified test suite with factory (preferred method)
+ * @param {string} testName - Name identifier for the test
+ * @returns {DatabaseTestSuite} Test suite instance
+ */
+function createTestSuite(testName) {
+  const { createTestSuite: createSuite } = require('./database-test-suite');
+  return createSuite(testName);
+}
+
 module.exports = {
   createTestDatabase,
   createTestDbInstance,
   createTestContext,
-  cleanupTestDatabase
+  cleanupTestDatabase,
+  // NEW: Factory-based testing
+  createTestSuite
 };
