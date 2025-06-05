@@ -181,14 +181,6 @@ async function cleanupTestDatabase(pool, dbName) {
   
   const pgClient = await pgPool.connect();
   try {
-    // Terminate any existing connections
-    await pgClient.query(`
-      SELECT pg_terminate_backend(pid) 
-      FROM pg_stat_activity 
-      WHERE datname = $1 AND pid <> pg_backend_pid()
-    `, [dbName]);
-    
-    // Drop the test database
     await pgClient.query(`DROP DATABASE IF EXISTS ${dbName}`);
     console.log(`Test database ${dbName} dropped successfully`);
     
