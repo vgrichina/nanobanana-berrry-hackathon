@@ -121,18 +121,19 @@ function createTestDbInstance(testPool) {
 /**
  * Create a test context with test database and real dependencies
  * @param {Pool} testPool - The test database pool
+ * @param {Object} options - Configuration options (e.g., twitterConfig)
  * @returns {object} Test context with test db and real dependencies
  */
-function createTestContext(testPool) {
+function createTestContext(testPool, options = {}) {
   const db = createTestDbInstance(testPool);
   
   // Create auth module with test database
   const createAuth = require('../../src/users/auth');
   const auth = createAuth(db);
   
-  // Create oauth module with test database
+  // Create oauth module with test database and optional config
   const createOAuth = require('../../src/users/oauth');
-  const oauth = createOAuth(db, auth);
+  const oauth = createOAuth(db, auth, options.twitterConfig);
   
   // Mock only Twitter API to avoid external calls
   const mockTwitterApi = {
@@ -200,11 +201,12 @@ async function cleanupTestDatabase(pool, dbName) {
 /**
  * NEW: Create a unified test suite with factory (preferred method)
  * @param {string} testName - Name identifier for the test
+ * @param {Object} options - Configuration options
  * @returns {DatabaseTestSuite} Test suite instance
  */
-function createTestSuite(testName) {
+function createTestSuite(testName, options = {}) {
   const { createTestSuite: createSuite } = require('./database-test-suite');
-  return createSuite(testName);
+  return createSuite(testName, options);
 }
 
 module.exports = {
