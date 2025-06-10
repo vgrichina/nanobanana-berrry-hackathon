@@ -133,7 +133,94 @@ function createTestContext(testPool, options = {}) {
   
   // Create oauth module with test database and optional config
   const createOAuth = require('../../src/users/oauth');
-  const oauth = createOAuth(db, auth, options.twitterConfig);
+  
+  // Create mock fetch for tests - provide realistic test data without HTTP calls
+  const mockFetch = async (url, options) => {
+    // Mock Twitter OAuth token exchange
+    if (url.includes('api.twitter.com/2/oauth2/token')) {
+      // Parse the request body to understand what's being requested
+      const body = options?.body?.toString() || '';
+      
+      // Check for error scenarios based on the authorization code
+      if (body.includes('invalid_code')) {
+        return {
+          ok: false,
+          status: 400,
+          text: async () => 'Invalid authorization code',
+          json: async () => ({ error: 'invalid_grant' })
+        };
+      }
+      if (body.includes('expired_code')) {
+        return {
+          ok: false,
+          status: 400,
+          text: async () => 'Authorization code expired',
+          json: async () => ({ error: 'invalid_grant' })
+        };
+      }
+      if (body.includes('rate_limited')) {
+        return {
+          ok: false,
+          status: 429,
+          text: async () => 'Rate limited',
+          json: async () => ({ error: 'rate_limit_exceeded' })
+        };
+      }
+      if (body.includes('network_error')) {
+        return {
+          ok: false,
+          status: 500,
+          text: async () => 'Network error',
+          json: async () => ({ error: 'server_error' })
+        };
+      }
+      
+      // Successful token exchange
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ 
+          access_token: 'mock_access_token',
+          token_type: 'bearer',
+          expires_in: 7200
+        }),
+        text: async () => 'success'
+      };
+    }
+    
+    // Mock Twitter user data API
+    if (url.includes('api.twitter.com/2/users/me')) {
+      // Return test user data that matches what the tests expect
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: {
+            id: 'twitter_user_1',
+            username: 'testuser123',
+            name: 'Test User',
+            verified: false
+          }
+        }),
+        text: async () => 'success'
+      };
+    }
+    
+    // Default mock response for any other URLs
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({}),
+      text: async () => 'mock response'
+    };
+  };
+  
+  const oauth = createOAuth({ 
+    db, 
+    auth, 
+    fetch: mockFetch, 
+    twitterConfig: options.twitterConfig 
+  });
   
   // Mock only Twitter API to avoid external calls
   const mockTwitterApi = {
@@ -144,9 +231,16 @@ function createTestContext(testPool, options = {}) {
   };
   
   // Use real dependencies
-  const llm = require('../../src/llm');
+  const createLLMClient = require('../../src/llm');
   const forkDetector = require('../../src/fork-detector');
   const tweetProcessor = require('../../src/tweet-processor');
+  
+  // Create LLM client - allow override via options for testing
+  // If no LLM provided in options, create a default one with a basic mock fetch
+  const llm = options.llm || createLLMClient({ 
+    fetch: options.llmFetch || mockFetch, 
+    db 
+  });
   
   return {
     db,
