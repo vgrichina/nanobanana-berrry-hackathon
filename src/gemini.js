@@ -292,46 +292,6 @@ Be specific about actionable app ideas based on the video content.`;
     }
   }
 
-  /**
-   * Analyze video preview image
-   */
-  async function analyzeVideoPreview(previewImageUrl, requestId = null) {
-    const prompt = `Analyze this video preview image and describe what kind of app or web application might be inspired by this content. Focus on UI concepts, functionality, and user interactions that could be implemented. Be concise but specific.`;
-
-    debug('Analyzing video preview image: %s', previewImageUrl);
-
-    // Download image and convert to base64
-    const response = await fetchFn(previewImageUrl);
-    if (!response.ok) {
-      throw new Error(`Failed to download preview image: ${response.status}`);
-    }
-
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const base64Image = buffer.toString('base64');
-
-    const requestBody = {
-      contents: [{
-        parts: [
-          { text: prompt },
-          {
-            inlineData: {
-              mimeType: 'image/jpeg',
-              data: base64Image
-            }
-          }
-        ]
-      }]
-    };
-
-    const apiResponse = await callWithRetry(requestBody, requestId, 3);
-
-    if (!apiResponse.candidates?.[0]?.content?.parts?.[0]?.text) {
-      throw new Error('Invalid Gemini API response structure');
-    }
-
-    return apiResponse.candidates[0].content.parts[0].text.trim();
-  }
 
   // Return the Gemini client object
   return {
@@ -339,7 +299,6 @@ Be specific about actionable app ideas based on the video content.`;
     uploadVideo,
     deleteFile,
     analyzeVideo,
-    analyzeVideoPreview,
     callWithRetry
   };
 }
