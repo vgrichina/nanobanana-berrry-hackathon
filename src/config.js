@@ -47,6 +47,17 @@ const config = {
     return `${subdomain}.${url.host}`;
   },
 
+  // Helper function to get cookie domain for cross-subdomain auth
+  getCookieDomain() {
+    const url = new URL(this.baseUrl);
+    // For localhost, don't set domain (let browser handle it)
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+      return undefined;
+    }
+    // For real domains, use dot prefix for subdomain sharing
+    return `.${url.hostname}`;
+  },
+
   // API Keys
   openrouterApiKey: process.env.OPENROUTER_API_KEY,
   geminiApiKey: process.env.GEMINI_API_KEY,
