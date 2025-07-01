@@ -248,6 +248,14 @@ function createGeminiClient(options = {}) {
 - User interactions and interface patterns  
 - Functionality that could be implemented as a web app
 - Creative features or novel UI concepts
+- Mathematical formulas, equations, or algorithms shown in the video
+- Complex animations or systems that would benefit from pseudocode explanation
+
+When describing complex animations, mathematical concepts, or systematic processes, include:
+- Relevant formulas or equations in standard mathematical notation
+- Pseudocode for algorithmic processes or animation logic
+- Step-by-step breakdowns of complex systems or interactions
+
 Be specific about actionable app ideas based on the video content.`;
 
     debug('Starting video analysis for: %s', videoUrl);
