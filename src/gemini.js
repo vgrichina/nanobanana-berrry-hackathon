@@ -1,4 +1,5 @@
 const debug = require('debug')('berrry:gemini');
+const { BERRY_COMPUTER_IDENTITY } = require('./prompts/common');
 
 // Gemini API configuration
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -265,6 +266,9 @@ Be specific about actionable app ideas based on the video content.`;
       const uploadedFile = await uploadVideo(videoUrl, requestId);
       
       const requestBody = {
+        systemInstruction: {
+          parts: [{ text: BERRY_COMPUTER_IDENTITY }]
+        },
         contents: [{
           parts: [
             { text: prompt },
