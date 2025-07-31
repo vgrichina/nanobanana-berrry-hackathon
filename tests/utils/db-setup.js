@@ -219,7 +219,8 @@ function createTestContext(testPool, options = {}) {
     db, 
     auth, 
     fetch: mockFetch, 
-    twitterConfig: options.twitterConfig 
+    twitterConfig: options.twitterConfig,
+    redditConfig: options.redditConfig
   });
   
   // Mock only Twitter API to avoid external calls
@@ -249,7 +250,9 @@ function createTestContext(testPool, options = {}) {
     twitterApi: mockTwitterApi,
     llm,
     forkDetector,
-    tweetProcessor
+    tweetProcessor,
+    fetch: mockFetch,
+    redditConfig: options.redditConfig
   };
 }
 
