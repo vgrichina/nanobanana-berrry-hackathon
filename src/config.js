@@ -78,6 +78,20 @@ const config = {
   maxConcurrentScreenshots: process.env.MAX_CONCURRENT_SCREENSHOTS ? 
     parseInt(process.env.MAX_CONCURRENT_SCREENSHOTS) : 1,
     
+  // Reddit configuration
+  reddit: {
+    clientId: process.env.REDDIT_CLIENT_ID,
+    clientSecret: process.env.REDDIT_CLIENT_SECRET,
+    userAgent: process.env.REDDIT_USER_AGENT || 'server:app.berrry.mention-bot:v1.0.0 (by /u/BerrryBot)',
+    get redirectUri() {
+      return process.env.REDDIT_REDIRECT_URI || (
+        process.env.NODE_ENV === 'production' 
+          ? config.getSiteUrl('/auth/reddit/callback')
+          : 'http://localhost:3000/auth/reddit/callback'
+      );
+    }
+  },
+  
   // Database configuration
   databaseUrl: process.env.DATABASE_URL
 };
