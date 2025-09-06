@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "collected_at": "2025-09-06T23:45:23.379Z",
+    "extraction_purpose": "hackathon_submission",
+    "database_snapshot": "production"
+  },
+  "statistics": {
+    "total_generations": "15",
+    "successful_generations": "15",
+    "failed_generations": "0",
+    "unique_prompts": "15",
+    "avg_width": "512.0000000000000000",
+    "avg_height": "512.0000000000000000",
+    "first_generation": "2025-09-06T20:16:01.870Z",
+    "last_generation": "2025-09-06T23:09:12.258Z",
+    "cache_hit_percentage": "13.3"
+  },
+  "examples": [
+    {
+      "id": 1117,
+      "filename": "example_01_1117.png",
+      "prompt": "Create an image using the reference as inspiration",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T23:09:12.258Z",
+      "sha256_hash": "6cee182479fb4fb687f1a9c8dd94f90106492002cc40177147107f1e9175c027"
+    },
+    {
+      "id": 1115,
+      "filename": "example_02_1115.png",
+      "prompt": "make it about Twitter",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:17:53.246Z",
+      "sha256_hash": "300bf1ddb41b0efcc9eff2b54f65dba85cf793cb2a09689e70c9f5b46156091c"
+    },
+    {
+      "id": 1114,
+      "filename": "example_03_1114.png",
+      "prompt": "make this photorealistic",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:17:06.680Z",
+      "sha256_hash": "d458deb40ac23728edfa2f9a5d0156121d6b869258561a972cffbf423df9e7c3"
+    },
+    {
+      "id": 1113,
+      "filename": "example_04_1113.png",
+      "prompt": "put me into distracted boyfriend meme instead",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:15:27.648Z",
+      "sha256_hash": "3227b2d074e3c33aa79804b1cf251cb13aa4e18b986676e827032d14016a5993"
+    },
+    {
+      "id": 1112,
+      "filename": "example_05_1112.png",
+      "prompt": "make me look like Gandalf",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:13:15.343Z",
+      "sha256_hash": "16e3006fdf357287fd0c0e4703019e9df4b35da94d318c82fff4c9da7f0ca857"
+    },
+    {
+      "id": 1111,
+      "filename": "example_06_1111.png",
+      "prompt": "make me look like Han Solo",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:07:59.156Z",
+      "sha256_hash": "947abe4febe367ca680be73bcbece24f997f48428ee269f288055536e2470887"
+    },
+    {
+      "id": 1110,
+      "filename": "example_07_1110.png",
+      "prompt": "put me into the this is fine meme",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:05:23.225Z",
+      "sha256_hash": "d5b97b5db4599c3074df03bee2dd0092f3c39a18cfdefb301830d053981c3a23"
+    },
+    {
+      "id": 1109,
+      "filename": "example_08_1109.png",
+      "prompt": "test wizard",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T22:01:07.101Z",
+      "sha256_hash": "f1eaf7bbd4412b82d4a33c9c4187561d8609a259117c2bd8702ffc6ebb142411"
+    },
+    {
+      "id": 1105,
+      "filename": "example_09_1105.png",
+      "prompt": "vibe coding pelican riding a bicycle in matrix",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T20:54:05.479Z",
+      "sha256_hash": "d340d999993f0bb49d6863f9dcc109c646f15d5c74c55d2b7555cd4aefc78a5b"
+    },
+    {
+      "id": 1103,
+      "filename": "example_10_1103.png",
+      "prompt": "pelican riding a bicycle in matrix",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T20:53:41.892Z",
+      "sha256_hash": "f803440065cda4bddb46c11b6b7acbfdd82d80ebbf67fc3de6425e84082beb6f"
+    },
+    {
+      "id": 1102,
+      "filename": "example_11_1102.png",
+      "prompt": "Magical banana wizard casting spells",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T20:19:12.375Z",
+      "sha256_hash": "9bbdaf51ecc5fc7b070e035c41fdb86eaf76eb306e8285b5592d4378ba3e66bc"
+    },
+    {
+      "id": 1101,
+      "filename": "example_12_1101.png",
+      "prompt": "Abstract banana art in watercolor style",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T20:17:00.040Z",
+      "sha256_hash": "5ebe7a5555808d9acd112d3238180d24c77b3c37b0cbe012c8458c36ee3268fa"
+    },
+    {
+      "id": 1100,
+      "filename": "example_13_1100.png",
+      "prompt": "Banana in space suit floating among stars",
+      "style": "nanobanana",
+      "dimensions": "512x512",
+      "seed": null,
+      "created_at": "2025-09-06T20:16:01.870Z",
+      "sha256_hash": "1a9f1d0148b9e48f27a89b2a5057a40953e3635a304ffb53fba8092953da55be"
+    }
+  ],
+  "demo_apps": [],
+  "popular_prompts": [],
+  "daily_metrics": [
+    {
+      "date": "2025-09-06T07:00:00.000Z",
+      "daily_generations": "15",
+      "successful": "15",
+      "failed": "0",
+      "unique_requests": "15",
+      "cache_hits": "0"
+    }
+  ],
+  "api_endpoints": {
+    "get_basic": "/api/nanobanana/image/512/512?prompt=wizard+in+space",
+    "get_with_style": "/api/nanobanana/image/768/768?prompt=cyberpunk+city&style=artistic",
+    "post_advanced": {
+      "url": "/api/nanobanana/image",
+      "method": "POST",
+      "content_type": "application/json",
+      "body": {
+        "prompt": "magical forest with glowing mushrooms",
+        "width": 1024,
+        "height": 768,
+        "style": "artistic",
+        "seed": 12345
+      }
+    }
+  }
+}
