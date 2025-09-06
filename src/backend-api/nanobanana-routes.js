@@ -119,6 +119,11 @@ const handleNanoBananaImage = async (ctx) => {
  * Handle POST /api/nanobanana/image - advanced generation with file uploads (redirects to cached URL)
  */
 const handleNanoBananaPost = async (ctx) => {
+  console.log('[nanobanana] POST handler called, content-type:', ctx.headers['content-type']);
+  console.log('[nanobanana] ctx.is(multipart/form-data):', ctx.is('multipart/form-data'));
+  console.log('[nanobanana] ctx.request.body:', JSON.stringify(ctx.request.body, null, 2));
+  console.log('[nanobanana] ctx.request.files:', JSON.stringify(ctx.request.files, null, 2));
+  
   const service = createNanoBananaService({ fetch: globalThis.fetch });
   const cache = createImageGenerationCache({ db: ctx.db });
   
@@ -132,6 +137,9 @@ const handleNanoBananaPost = async (ctx) => {
       // koa-body puts form fields in ctx.request.body and files in ctx.request.files
       params = { ...ctx.request.body };
       const files = ctx.request.files;
+      
+      // DEBUG: Log what files we received
+      console.log('[nanobanana] DEBUG: files object:', JSON.stringify(files, null, 2));
       
       // Handle uploaded files for editing
       if (files && files.base_image) {
@@ -147,6 +155,26 @@ const handleNanoBananaPost = async (ctx) => {
             ctx.body = { error: 'Failed to process uploaded image' };
             return;
           }
+        }
+      }
+
+      // Handle uploaded reference images
+      if (files && files.reference_images) {
+        const referenceImageFiles = Array.isArray(files.reference_images) ? files.reference_images : [files.reference_images];
+        try {
+          const fs = require('fs').promises;
+          params.reference_images_base64 = [];
+          for (const referenceImageFile of referenceImageFiles) {
+            if (referenceImageFile && referenceImageFile.size > 0) {
+              const imageBuffer = await fs.readFile(referenceImageFile.filepath);
+              params.reference_images_base64.push(`data:${referenceImageFile.mimetype};base64,${imageBuffer.toString('base64')}`);
+            }
+          }
+        } catch (error) {
+          console.error('[nanobanana] Failed to process uploaded reference images:', error);
+          ctx.status = 400;
+          ctx.body = { error: 'Failed to process uploaded reference images' };
+          return;
         }
       }
       

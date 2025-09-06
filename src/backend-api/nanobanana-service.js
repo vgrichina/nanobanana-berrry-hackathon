@@ -86,6 +86,9 @@ const createNanoBananaService = (options = {}) => {
    * Build Gemini API request body
    */
   const buildRequestBody = (params) => {
+    // DEBUG: Log params to see what's available
+    console.log('[nanobanana] DEBUG: buildRequestBody params:', JSON.stringify(params, null, 2));
+    
     const contents = [];
     
     // Add text prompt
@@ -114,6 +117,14 @@ const createNanoBananaService = (options = {}) => {
         });
       });
     }
+    
+    // Log what we have for debugging
+    console.log('[nanobanana] DEBUG: Available image data:', {
+      has_reference_images_base64: !!(params.reference_images_base64 && params.reference_images_base64.length > 0),
+      reference_images_base64_count: params.reference_images_base64?.length || 0,
+      has_reference_images: !!(params.reference_images && params.reference_images.length > 0),
+      reference_images_count: params.reference_images?.length || 0
+    });
 
     const requestBody = {
       contents: [{ parts: contents }],
@@ -180,18 +191,24 @@ const createNanoBananaService = (options = {}) => {
 
     const result = await response.json();
     
+    // DEBUG: Log the full API response structure
+    console.log('[nanobanana] Gemini API response structure:', JSON.stringify(result, null, 2));
+    
     if (!result.candidates || result.candidates.length === 0) {
+      console.log('[nanobanana] ERROR: No candidates in response');
       throw new Error('API_ERROR: No candidates returned');
     }
 
     const candidate = result.candidates[0];
     if (!candidate.content?.parts) {
+      console.log('[nanobanana] ERROR: No content parts in candidate:', JSON.stringify(candidate, null, 2));
       throw new Error('API_ERROR: No content parts returned');
     }
 
     // Find the image part
     let base64Image = null;
     for (const part of candidate.content.parts) {
+      console.log('[nanobanana] DEBUG: Processing part:', JSON.stringify(part, null, 2));
       if (part.inlineData?.data) {
         base64Image = part.inlineData.data;
         break;
@@ -199,6 +216,7 @@ const createNanoBananaService = (options = {}) => {
     }
 
     if (!base64Image) {
+      console.log('[nanobanana] ERROR: No image data found in parts. Full candidate:', JSON.stringify(candidate, null, 2));
       throw new Error('API_ERROR: No image data returned');
     }
 
