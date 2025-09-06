@@ -22,7 +22,7 @@ Use this for realistic, artistic, and high-quality image generation.
 - `/api/nanobanana/image/{width}/{height}?prompt=...`
 
 **Advanced Generation (POST):**
-- `POST /api/nanobanana/generate` (supports file uploads, editing, composition)
+- `POST /api/nanobanana/image` (supports file uploads, editing, composition - redirects to cached image URL)
 
 ## Size Guidelines
 
@@ -52,6 +52,7 @@ Use this for realistic, artistic, and high-quality image generation.
   base_image: File, // or base_image_base64
   strength: 0.7     // How much to change (0.1-1.0)
 }
+// POST responds with 302 redirect to: /api/nanobanana/image/{id}
 ```
 
 ### Multi-Image Composition
@@ -60,6 +61,7 @@ Use this for realistic, artistic, and high-quality image generation.
   prompt: "person working at desk in modern office photorealistic",
   reference_images: [File, File] // or reference_images_base64
 }
+// POST responds with 302 redirect to: /api/nanobanana/image/{id}
 ```
 
 ## Prompt Tips

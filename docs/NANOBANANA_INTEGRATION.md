@@ -294,24 +294,15 @@ document.body.appendChild(await generateAndDisplay('cyberpunk cityscape', 'lands
 
 ```sql
 -- Extend existing image_generations table to support nano banana
-ALTER TABLE image_generations ADD COLUMN provider VARCHAR(50) DEFAULT 'retrodiffusion';
+-- Note: provider column already exists in current schema
 ALTER TABLE image_generations ADD COLUMN base_image_id INTEGER REFERENCES image_generations(id);
-ALTER TABLE image_generations ADD COLUMN editing_prompt TEXT;
-ALTER TABLE image_generations ADD COLUMN upload_method VARCHAR(10) DEFAULT 'GET'; -- 'GET' or 'POST'
-ALTER TABLE image_generations ADD COLUMN composition_source_count INTEGER DEFAULT 0;
-
--- Result images for POST endpoints (temporary storage)
-CREATE TABLE generation_results (
-    id SERIAL PRIMARY KEY,
-    result_id VARCHAR(255) UNIQUE NOT NULL,
-    image_id INTEGER REFERENCES image_generations(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL '24 hours')
-);
-
--- Cleanup expired results
-CREATE INDEX idx_generation_results_expires_at ON generation_results(expires_at);
 ```
+
+**Schema Design Notes:**
+- `provider` column already exists (retrodiffusion/nanobanana)  
+- `prompt` field handles both generation ("blue cat") and editing ("make background red")
+- `base_image_id IS NULL` = new generation, `base_image_id IS NOT NULL` = editing operation
+- POST endpoints use redirect to GET URLs for proper browser caching
 
 ## Cost Controls
 
