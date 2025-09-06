@@ -41,7 +41,7 @@ const createImageGenerationCache = (options = {}) => {
     // Generate SHA256 hash of image content for deduplication
     const sha256Hash = crypto.createHash('sha256').update(imageBuffer).digest('hex');
     
-    await db.query(`
+    const result = await db.query(`
       INSERT INTO image_generations 
       (user_id, app_id, provider, prompt, style, width, height, seed, remove_bg, tile_x, tile_y, 
        cache_hash, content_oid, content_type, sha256_hash, success, created_at)
@@ -53,6 +53,7 @@ const createImageGenerationCache = (options = {}) => {
         success = EXCLUDED.success,
         error_message = NULL,
         created_at = EXCLUDED.created_at
+      RETURNING id, cache_hash, created_at
     `, [
       userId,
       appId,
@@ -70,6 +71,8 @@ const createImageGenerationCache = (options = {}) => {
       contentType,
       sha256Hash
     ]);
+    
+    return result.rows[0];
   };
 
   /**

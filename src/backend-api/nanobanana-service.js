@@ -137,12 +137,8 @@ const createNanoBananaService = (options = {}) => {
     const requestBody = buildRequestBody(params);
     const operationType = detectOperationType(params);
 
-    // Log reproducible curl command for debugging
-    const curlCommand = `curl -X POST '${baseUrl}?key=${apiKey}' \\
-  -H 'Content-Type: application/json' \\
-  -d '${JSON.stringify(requestBody)}'`;
-    console.log('Gemini 2.5 Flash Image API call (reproducible curl):');
-    console.log(curlCommand);
+    // Log API call info for debugging
+    console.log(`[nanobanana] Generating ${operationType}: ${params.width}x${params.height}`);
 
     const response = await fetch(`${baseUrl}?key=${apiKey}`, {
       method: 'POST',
