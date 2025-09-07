@@ -1,6 +1,6 @@
 # 🍌 Google Nano Banana API Integration for berrry.app
 
-**Hackathon Submission**: Integration of Google's Nano Banana (Gemini 2.5 Flash Image) API that turns any web app into a visual experience with 3 lines of code.
+**Hackathon Submission**: Integration of Google's Nano Banana (Gemini 2.5 Flash Image) API that turns any web app into a visual experience with 1 line of code.
 
 ## 🎯 What This Is
 
