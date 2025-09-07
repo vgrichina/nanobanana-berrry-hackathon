@@ -99,17 +99,6 @@ Image generation platform with multiple AI providers
 - **Files**: [demos/apps/imagemagic/](demos/apps/imagemagic/)
 - **Usage**: Advanced features with multiple API endpoints
 
-## 📊 Production Metrics
-
-From real berrry.app usage:
-
-| Metric | Value |
-|--------|-------|
-| **Total Generations** | 17 successful |
-| **Success Rate** | 100% |
-| **Demo Apps** | 3 live production apps |
-| **API Calls in Code** | 5 total references |
-
 ## 🛠 Technical Architecture
 
 ### API Design
