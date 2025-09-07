@@ -1,0 +1,37 @@
+{
+  "subdomain": "memeyourself",
+  "app_id": 2791,
+  "created_at": "2025-09-07T04:16:48.537Z",
+  "current_version_id": 3759,
+  "live_url": "https://memeyourself.berrry.app",
+  "files_count": 4,
+  "files": [
+    {
+      "name": "app.js",
+      "size": 22975,
+      "type": "application/javascript",
+      "created_at": "2025-09-07T04:16:48.537Z"
+    },
+    {
+      "name": "index.html",
+      "size": 567,
+      "type": "text/html",
+      "created_at": "2025-09-07T04:16:48.537Z"
+    },
+    {
+      "name": "styles.css",
+      "size": 2385,
+      "type": "text/css",
+      "created_at": "2025-09-07T04:16:48.537Z"
+    },
+    {
+      "name": "subdomains",
+      "size": 98,
+      "type": "text/css",
+      "created_at": "2025-09-07T04:16:48.537Z"
+    }
+  ],
+  "nanobanana_api_calls": 1,
+  "extracted_at": "2025-09-07T00:01:54.892Z",
+  "description": "AI meme generator that puts your face into popular meme templates using Nano Banana API"
+}

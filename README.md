@@ -82,17 +82,35 @@ fetch('/api/nanobanana/image', { method: 'POST', body: formData });
 }
 ```
 
+## 🎯 Live Demo Apps
+
+**Real production apps** using Nano Banana in the wild:
+
+### [memeyourself.berrry.app](https://memeyourself.berrry.app) 
+AI meme generator that puts your face into popular meme templates
+- **Files**: [demos/apps/memeyourself/](demos/apps/memeyourself/)
+- **Usage**: Direct API calls for meme generation
+
+### [thisfinebanana.berrry.app](https://thisfinebanana.berrry.app)
+Developer humor app generating "This is Fine" style images with banana characters  
+- **Files**: [demos/apps/thisfinebanana/](demos/apps/thisfinebanana/)
+- **Usage**: Dynamic prompt generation with size options
+
+### [imagemagic.berrry.app](https://imagemagic.berrry.app)  
+Image generation platform with multiple AI providers
+- **Files**: [demos/apps/imagemagic/](demos/apps/imagemagic/)
+- **Usage**: Advanced features with multiple API endpoints
+
 ## 📊 Production Metrics
 
 From real berrry.app usage:
 
 | Metric | Value |
 |--------|-------|
-| **Total Generations** | 14+ successful |
-| **Success Rate** | 92%+ |
-| **Average Response Time** | < 3 seconds |
-| **Cache Hit Rate** | 15%+ (growing) |
-| **Demo Apps** | 3 active subdomains |
+| **Total Generations** | 17 successful |
+| **Success Rate** | 100% |
+| **Demo Apps** | 3 live production apps |
+| **API Calls in Code** | 5 total references |
 
 ## 🛠 Technical Architecture
 
@@ -137,11 +155,11 @@ The system supports multiple image generation providers:
 
 ## 🎬 Demo Walkthrough
 
-1. **Simple HTML** - Show `<img>` tag generating images
-2. **Real berrry.app** - Live subdomain using the API
-3. **Advanced Features** - Image editing and composition
-4. **Performance** - Cache hits and fallback behavior
-5. **Production Data** - Real usage statistics and examples
+1. **Live Apps** - Visit [memeyourself.berrry.app](https://memeyourself.berrry.app), [thisfinebanana.berrry.app](https://thisfinebanana.berrry.app), [imagemagic.berrry.app](https://imagemagic.berrry.app)
+2. **View Source** - See real nanobanana API usage in [demos/apps/](demos/apps/)
+3. **Simple Integration** - `<img src="/api/nanobanana/image/512/512?prompt=wizard+in+space" />`
+4. **Advanced Features** - POST requests with file uploads and editing
+5. **Production Ready** - Caching, error handling, fallback systems
 
 ## 🏆 Why This Wins
 

@@ -1,0 +1,37 @@
+{
+  "subdomain": "thisfinebanana",
+  "app_id": 2792,
+  "created_at": "2025-09-07T04:18:58.429Z",
+  "current_version_id": 3760,
+  "live_url": "https://thisfinebanana.berrry.app",
+  "files_count": 4,
+  "files": [
+    {
+      "name": "app.js",
+      "size": 24089,
+      "type": "application/javascript",
+      "created_at": "2025-09-07T04:18:58.429Z"
+    },
+    {
+      "name": "index.html",
+      "size": 5586,
+      "type": "text/html",
+      "created_at": "2025-09-07T04:18:58.429Z"
+    },
+    {
+      "name": "styles.css",
+      "size": 53,
+      "type": "text/css",
+      "created_at": "2025-09-07T04:18:58.429Z"
+    },
+    {
+      "name": "subdomains",
+      "size": 111,
+      "type": "text/css",
+      "created_at": "2025-09-07T04:18:58.429Z"
+    }
+  ],
+  "nanobanana_api_calls": 1,
+  "extracted_at": "2025-09-07T00:01:55.212Z",
+  "description": "Developer humor app generating \"This is Fine\" style images with banana characters in chaotic scenarios"
+}
