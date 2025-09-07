@@ -2,8 +2,6 @@
 
 **Hackathon Submission**: AI-powered image generation API that turns any web app into a visual experience with 3 lines of code.
 
-![Nano Banana Demo](hackathon/screenshots/hero-demo.png)
-
 ## 🎯 What This Is
 
 Nano Banana is a **production-ready image generation API** integrated into [berrry.app](https://berrry.app) that uses Google's **Gemini 2.5 Flash Image** model. It demonstrates how modern AI image generation can be seamlessly embedded into existing web applications with zero JavaScript required.
