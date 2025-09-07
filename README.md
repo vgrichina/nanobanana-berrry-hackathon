@@ -1,10 +1,10 @@
-# 🍌 Nano Banana: Gemini 2.5 Flash Image Integration for berrry.app
+# 🍌 Google Nano Banana API Integration for berrry.app
 
-**Hackathon Submission**: AI-powered image generation API that turns any web app into a visual experience with 3 lines of code.
+**Hackathon Submission**: Integration of Google's Nano Banana (Gemini 2.5 Flash Image) API that turns any web app into a visual experience with 3 lines of code.
 
 ## 🎯 What This Is
 
-Nano Banana is a **production-ready image generation API** integrated into [berrry.app](https://berrry.app) that uses Google's **Gemini 2.5 Flash Image** model. It demonstrates how modern AI image generation can be seamlessly embedded into existing web applications with zero JavaScript required.
+This project showcases a **production-ready integration** of **Google's Nano Banana API** (Gemini 2.5 Flash Image model) into [berrry.app](https://berrry.app). It demonstrates how modern AI image generation can be seamlessly embedded into existing web applications with zero JavaScript required.
 
 ### ⚡ Key Innovation
 
@@ -15,7 +15,7 @@ Nano Banana is a **production-ready image generation API** integrated into [berr
 <img src="/api/nanobanana/image/512/512?prompt=wizard+in+purple+robes" />
 ```
 
-## 🚀 What Makes This Special
+## 🚀 What Makes This Integration Special
 
 ### 1. **Zero-Friction Integration**
 - Works in plain HTML `<img>` tags
@@ -39,7 +39,7 @@ This isn't a demo - it's **live in production** on berrry.app with:
 ## 📁 Repository Contents
 
 ### Core Implementation
-- **`src/nanobanana-service.js`** - Gemini 2.5 Flash API client with validation
+- **`src/nanobanana-service.js`** - Google Nano Banana API client with validation
 - **`src/nanobanana-routes.js`** - Koa.js routes supporting GET/POST endpoints  
 - **`src/image-generation-cache.js`** - PostgreSQL LOB caching system
 - **`migrations/053_add_nanobanana_support.sql`** - Database schema
@@ -82,7 +82,7 @@ fetch('/api/nanobanana/image', { method: 'POST', body: formData });
 
 ## 🎯 Live Demo Apps
 
-**Real production apps** using Nano Banana in the wild:
+**Real production apps** using Google's Nano Banana API in the wild:
 
 ### [memeyourself.berrry.app](https://memeyourself.berrry.app) 
 AI meme generator that puts your face into popular meme templates
@@ -127,7 +127,7 @@ WHERE provider = 'nanobanana' AND success = true;
 
 ### Provider-Agnostic Design
 The system supports multiple image generation providers:
-- **nanobanana** (Gemini 2.5 Flash Image)  
+- **nanobanana** (Google's Nano Banana - Gemini 2.5 Flash Image)  
 - **retrodiffusion** (existing provider)
 - Easy to add new providers
 
@@ -141,7 +141,7 @@ The system supports multiple image generation providers:
 
 ### For Users
 - **Instant visual content** in any web app
-- **High-quality results** from Gemini 2.5 Flash
+- **High-quality results** from Google's Nano Banana API
 - **Fast responses** thanks to intelligent caching
 - **Never breaks** with robust fallback system
 
@@ -195,4 +195,4 @@ open demos/api-examples.md
 
 ---
 
-*This submission showcases a real, working integration of Gemini 2.5 Flash Image into a production web application, demonstrating both technical excellence and practical value.*
+*This submission showcases a real, working integration of Google's Nano Banana API (Gemini 2.5 Flash Image) into a production web application, demonstrating both technical excellence and practical value.*
